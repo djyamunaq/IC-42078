@@ -14,20 +14,10 @@ constexpr size_t FRAMES_BUFFER_SIZE = 65536; // Buffer for reading frames
 
 int main(int argc, char *argv[]) {
 	if(argc < 3) {
-		cerr << "Usage: " << argv[0] << " <input file> <channel> ?<MID/SIDE>\n? OPTIONAL\n";
+		cerr << "Usage: " << argv[0] << " <input file> <channel>\n";
 		return 1;
 	}
 
-	int mode = REGULAR;
-	if(argc > 3) {
-		if(strcmp(argv[3], "MID") == 0) {
-			mode = MID;
-		} else if(strcmp(argv[3], "SIDE") == 0) {
-			mode = SIDE;
-		} else {
-			cerr << "Error: invalid working mode selected\n";
-		}
-	}
 
 	SndfileHandle sndFile { argv[1] };
 	if(sndFile.error()) {
@@ -54,40 +44,18 @@ int main(int argc, char *argv[]) {
 	size_t nFrames;
 	vector<short> samples(FRAMES_BUFFER_SIZE * sndFile.channels());
 
-	WAVHist *hist;
-	if (mode == REGULAR) {
-		 hist = new WAVHist(sndFile);
-	} else {
-		hist = new WAVHist();
-	}
-
-	int numChannels = sndFile.channels();
+	WAVHist *hist = new WAVHist(sndFile);
 
 	while((nFrames = sndFile.readf(samples.data(), FRAMES_BUFFER_SIZE))) {
-		samples.resize(nFrames * numChannels);
-
-		if (mode == MID) {
-			// Calculate MID channel from L and R
-    		vector<short> midChannel(FRAMES_BUFFER_SIZE);
-        	for (size_t i = 0; i < nFrames; ++i) {
-            	midChannel[i] = (samples[i * numChannels] + samples[i * numChannels + 1]) / 2;
-        	}
-			samples = midChannel;
-		} else if (mode == SIDE) {
-			// Calculate SIDE channel from L and R
-		    vector<short> sideChannel(FRAMES_BUFFER_SIZE);
-			for (size_t i = 0; i < nFrames; ++i) {
-            	sideChannel[i] = (samples[i * numChannels] - samples[i * numChannels + 1]) / 2;
-        	}
-			samples = sideChannel;
-		}
-		
+		samples.resize(nFrames * sndFile.channels());
 		hist->update(samples);
 	}
 
-	if (mode == MID || mode == SIDE) channel = 0;
+	// hist->dump(channel);
 
-	hist->dump(channel);
+	hist->displayHistogram(hist->getChannel(0), 16);
+	hist->displayHistogram(hist->getMidChannel(), 1);
+	hist->displayHistogram(hist->getSideChannel(), 1);
 
 	// Free space from histogram
 	delete hist;

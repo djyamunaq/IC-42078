@@ -1,10 +1,12 @@
 INITIAL SETUP
     [X] Dependencies installed
-        sudo apt install fftw
-        sudo apt install plocate
-        sudo apt-get install libsndfile-dev
+            sudo apt install fftw
+            sudo apt install plocate
+            sudo apt-get install libsndfile-dev
     [X] Code ran with no problems
 
 PART 1
     [X] 1. Histogram of the average of the channels (MID Channel) => Average of the L and R channels => (L+R)/2
-    [X] 2. Histogram of the average of the channels (MID Channel) => Average of the L and R channels => (L+R)/2
+    [X] 2. Histogram of the difference of the channels (SIDE Channel) => Difference of the L and R channels => (L-R)/2
+    [X] Install OpenCV to output histogram
+            sudo apt-get install libopencv-dev
