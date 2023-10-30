@@ -16,8 +16,7 @@ class WAVHist {
 		std::map<short, size_t> midChannel;
 		std::vector<short> midChannelVec;
 		std::vector<short> sideChannelVec;
-		std::vector<short> channel0;
-		std::vector<short> channel1;
+		std::vector<std::vector<short>> channelInTime;
 
 		/* Provide SIDE channel */
 		void calculateSideChannel() {
@@ -25,10 +24,10 @@ class WAVHist {
 				std::cout << "Not an stereo audio! It's not possible to calculate side channel!" << std::endl;
 			}
 
-			int channelSize = channel0.size();
+			int channelSize = channelInTime[0].size();
 			sideChannelVec.resize(channelSize);
 			for (int i=0; i<channelSize; i++) {
-				sideChannelVec[i] = (channel0[i] - channel1[i])/2;
+				sideChannelVec[i] = (channelInTime[0][i] - channelInTime[1][i])/2;
 				sideChannel[sideChannelVec[i]]++;
 			}
 		}
@@ -39,11 +38,11 @@ class WAVHist {
 				std::cout << "Not an stereo audio! It's not possible to calculate mid channel!" << std::endl;
 			}
 
-			int channelSize = channel0.size();
+			int channelSize = channelInTime[0].size();
 
 			midChannelVec.resize(channelSize);
 			for (int i=0; i<channelSize; i++) {
-				midChannelVec[i] = (channel0[i] + channel1[i])/2;
+				midChannelVec[i] = (channelInTime[0][i] + channelInTime[1][i])/2;
 				midChannel[midChannelVec[i]]++;
 			}
 		}
@@ -60,11 +59,11 @@ class WAVHist {
 		void update(const std::vector<short>& samples) {
 			size_t n { };
 			for(auto s : samples) {
-				if (n % counts.size() == 0) {
-					channel0.push_back(s);
-				} else {
-					channel1.push_back(s);
+				if (channelInTime.size() <= n) {
+					channelInTime.resize(n+1);
 				}
+				channelInTime[n % counts.size()].push_back(s);
+				
 				counts[n++ % counts.size()][s]++;
 			}
 		}
@@ -75,7 +74,32 @@ class WAVHist {
 		}
 
 		/**/
-		std::map<short, size_t> getChannel(int channel) {
+		std::vector<short> getChannelInTime(int channel) {
+			if (channelInTime.size() > channel) {
+				return channelInTime[channel];
+			}
+		}
+
+		/**/
+		std::vector<short> getMidChannelInTime() {
+			if (midChannel.empty()) {
+				calculateMidChannel();
+			}
+
+			return midChannelVec;
+		}
+
+		/**/
+		std::vector<short> getSideChannelInTime() {
+			if (sideChannel.empty()) {
+				calculateSideChannel();
+			}
+
+			return sideChannelVec;
+		}
+
+		/**/
+		std::map<short, size_t> getChannelInFrequency(unsigned int channel) {
 			if (counts.size() > channel) {
 				return counts[channel];
 			}

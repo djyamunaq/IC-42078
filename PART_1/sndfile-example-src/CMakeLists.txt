@@ -25,3 +25,8 @@ target_link_libraries (wav_hist sndfile ${OpenCV_LIBS})
 add_executable (wav_dct wav_dct.cpp)
 target_link_libraries (wav_dct sndfile fftw3)
 
+add_executable (wav_cmp wav_cmp.cpp)
+target_link_libraries (wav_cmp sndfile fftw3)
+
+add_executable (wav_quant wav_quant.cpp)
+target_link_libraries (wav_quant sndfile fftw3)
