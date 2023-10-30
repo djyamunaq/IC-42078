@@ -10,3 +10,4 @@ PART 1
     [X] 2. Histogram of the difference of the channels (SIDE Channel) => Difference of the L and R channels => (L-R)/2
     [X] Install OpenCV to output histogram
             sudo apt-get install libopencv-dev
+

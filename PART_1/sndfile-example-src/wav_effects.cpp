@@ -9,6 +9,7 @@ using namespace std;
 constexpr size_t FRAMES_BUFFER_SIZE = 65536; // Buffer for reading frames
 
 void applyEcho(std::vector<short>& samples, int sampleRate, double delayInSeconds, double decay);
+void applyAmplitudeModulation(std::vector<double>& samples, int sampleRate, double modFreq, double depth);
 
 int main(int argc, char *argv[]) {
 	if(argc < 3) {
@@ -56,5 +57,12 @@ void applyEcho(std::vector<short>& samples, int sampleRate, double delayInSecond
     
     for (int i = delaySamples; i < samples.size(); i++) {
         samples[i] += samples[i - delaySamples] * decay;
+    }
+}
+
+void applyAmplitudeModulation(std::vector<double>& samples, int sampleRate, double modFreq, double depth) {
+    for (int i = 0; i < samples.size(); i++) {
+        double carrier = sin(2.0 * M_PI * modFreq * i / sampleRate);
+        samples[i] = (1.0 + samples[i] * depth) * carrier;
     }
 }
