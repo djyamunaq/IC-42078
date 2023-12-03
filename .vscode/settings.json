@@ -62,6 +62,10 @@
         "thread": "cpp",
         "typeinfo": "cpp",
         "complex": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "xlocmon": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp",
+        "xstring": "cpp"
     }
 }

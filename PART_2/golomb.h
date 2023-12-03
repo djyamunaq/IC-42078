@@ -22,9 +22,9 @@ public:
 
     /* Enconding function */
     string encode(int x) const {
-        cout << "m: " << m << endl;
-        cout << "value: " << x << endl;
-        cout << "truncated: " << truncatedBinaryEncode << endl;
+        // cout << "m: " << m << endl;
+        // cout << "value: " << x << endl;
+        // cout << "truncated: " << truncatedBinaryEncode << endl;
 
         /* Handle negative numbers based on user's choice */
         if (useSignMagnitude && x < 0) {
@@ -45,8 +45,8 @@ public:
         int quotient = unaryDecode(encodedBits, pos);
         int remainder = binaryDecode(encodedBits, pos);
 
-        cout << "Q: " << quotient << endl;
-        cout << "R: " << remainder << endl;
+        // cout << "Q: " << quotient << endl;
+        // cout << "R: " << remainder << endl;
 
         // Handle negative numbers based on user's choice
         if (useSignMagnitude && encodedBits[0] == '1') {
@@ -104,9 +104,8 @@ private:
 
         std::string binaryStr = encodedBits.substr(pos, encodedBits.size());
         binaryStr = string(encodedBits.size()-pos+1, '0') + binaryStr;
-        cout << binaryStr << endl;
+        // cout << binaryStr << endl;
         unsigned long value = std::bitset<32>(binaryStr).to_ulong();
-        cout << "A" << endl;
 
         /* Truncated Binary Encoding */
         if (truncatedBinaryEncode) {
