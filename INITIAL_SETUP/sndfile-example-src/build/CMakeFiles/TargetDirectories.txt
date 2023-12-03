@@ -1,5 +1,0 @@
-/home/rt/Documents/IC/INITIAL_SETUP/sndfile-example-src/build/CMakeFiles/wav_cp.dir
-/home/rt/Documents/IC/INITIAL_SETUP/sndfile-example-src/build/CMakeFiles/wav_hist.dir
-/home/rt/Documents/IC/INITIAL_SETUP/sndfile-example-src/build/CMakeFiles/wav_dct.dir
-/home/rt/Documents/IC/INITIAL_SETUP/sndfile-example-src/build/CMakeFiles/edit_cache.dir
-/home/rt/Documents/IC/INITIAL_SETUP/sndfile-example-src/build/CMakeFiles/rebuild_cache.dir
