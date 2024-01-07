@@ -32,11 +32,40 @@ class Predictor {
         Predictor(int mode) : mode(mode) {
         }
 
+        Mat calculateActualMatrix(Mat residualMatrix) {
+            Mat actualMatrix = Mat::zeros(residualMatrix.rows, residualMatrix.cols, residualMatrix.type());
+
+            for(int i=0; i<residualMatrix.rows; i++) {
+                for(int j=0; j<residualMatrix.cols; j++) {
+                    int a, b, c;
+                    a = b = c = 0;
+                    if (j > 0) {
+                        a = (int) actualMatrix.at<uchar>(i, j-1);
+
+                        if (i > 0) {
+                            c = (int) actualMatrix.at<uchar>(i-1, j-1);
+                        }
+                    }
+                    if (i > 0) {
+                        b = (int) actualMatrix.at<uchar>(i-1, j);
+                    }
+
+                    int prediction = predict(a, b, c);
+                    int actualValue = prediction + residualMatrix.at<uchar>(i, j);
+                    actualMatrix.at<uchar>(i, j) = actualValue;
+                }
+            }
+
+            // cout << actualMatrix << endl;
+
+            return actualMatrix;
+        }
+
         Mat calculateResidualMatrix(Mat inputMatrix) {
             Mat residualMatrix(inputMatrix.rows, inputMatrix.cols, inputMatrix.type());
 
-            for(int j=0; j<inputMatrix.rows; j++) {
-                for(int i=0; i<inputMatrix.cols; i++) {
+            for(int i=0; i<inputMatrix.rows; i++) {
+                for(int j=0; j<inputMatrix.cols; j++) {
                     unsigned int a, b, c;
                     a = b = c = 0;
 
@@ -59,6 +88,8 @@ class Predictor {
                     residualMatrix.at<uchar>(i, j) = inputMatrix.at<uchar>(i, j) - prediction;
                 }
             }
+
+            // cout << inputMatrix << endl;
 
             return residualMatrix;
         }

@@ -79,7 +79,7 @@ public:
     }
 
     /* Enconding function */
-    char* encode(int x) {
+    string encode(int x) {
         // cout << "m: " << m << endl;
         // cout << "value: " << x << endl;
         // cout << "truncated: " << truncatedBinaryEncode << endl;
@@ -102,7 +102,7 @@ public:
             this->bitStream.pushBit(value);                        
         }
 
-        return code.data();
+        return code;
     }
 
     /* Decoding function */

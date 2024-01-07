@@ -67,6 +67,19 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "xstring": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "charconv": "cpp",
+        "ios": "cpp",
+        "locale": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocbuf": "cpp",
+        "xlocinfo": "cpp",
+        "xlocmes": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "xmemory": "cpp",
+        "filesystem": "cpp"
     }
 }
