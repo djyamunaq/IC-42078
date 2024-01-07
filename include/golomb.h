@@ -1,6 +1,7 @@
 #include <iostream>
 #include <bitset>
 #include <math.h>
+#include "bit_stream.h"
 
 using std::cout;
 using std::endl;
@@ -14,57 +15,8 @@ private:
     int m;
     bool useSignMagnitude;
     bool truncatedBinaryEncode = true;
+    BitStream bitStream;
 
-public:
-    GolombCoding(int mValue, bool signMagnitude) : m(mValue), useSignMagnitude(signMagnitude) {
-        if ((mValue > 0) && ((mValue & (mValue - 1)) == 0)) truncatedBinaryEncode = false;
-    }
-
-    /* Enconding function */
-    string encode(int x) const {
-        // cout << "m: " << m << endl;
-        // cout << "value: " << x << endl;
-        // cout << "truncated: " << truncatedBinaryEncode << endl;
-
-        /* Handle negative numbers based on user's choice */
-        if (useSignMagnitude && x < 0) {
-            x = -x;
-            return "1" + unaryEncode(x / m) + binaryEncode(x % m);
-        } else if (useSignMagnitude) {
-            return "0" + unaryEncode(x / m) + binaryEncode(x % m);
-        } else {
-            return unaryEncode(x / m) + binaryEncode(x % m);
-        }
-    }
-
-    /* Decoding function */
-    int decode(const std::string& encodedBits) const {
-        int pos = 0;
-
-        if (useSignMagnitude) pos++;
-        int quotient = unaryDecode(encodedBits, pos);
-        int remainder = binaryDecode(encodedBits, pos);
-
-        // cout << "Q: " << quotient << endl;
-        // cout << "R: " << remainder << endl;
-
-        // Handle negative numbers based on user's choice
-        if (useSignMagnitude && encodedBits[0] == '1') {
-            return -((quotient * m) + remainder);
-        } else {
-            return (quotient * m) + remainder;
-        }
-    }
-
-    void setM(int newM) {
-        m = newM;
-    }
-
-    void setNegativeRepresentation(bool signMag) {
-        useSignMagnitude = signMag;
-    }
-
-private:
     string unaryEncode(int value) const {
         if (value == 0) return "0";
         return string(value, '1') + '0';
@@ -119,5 +71,68 @@ private:
         else {
             return value;
         }
+    }
+
+public:
+    GolombCoding(int mValue, bool signMagnitude) : m(mValue), useSignMagnitude(signMagnitude) {
+        if ((mValue > 0) && ((mValue & (mValue - 1)) == 0)) truncatedBinaryEncode = false;
+    }
+
+    /* Enconding function */
+    char* encode(int x) {
+        // cout << "m: " << m << endl;
+        // cout << "value: " << x << endl;
+        // cout << "truncated: " << truncatedBinaryEncode << endl;
+
+        string code;
+
+        /* Handle negative numbers based on user's choice */
+        if (useSignMagnitude && x < 0) {
+            x = -x;
+            code = "1" + unaryEncode(x / m) + binaryEncode(x % m);
+        } else if (useSignMagnitude) {
+            code = "0" + unaryEncode(x / m) + binaryEncode(x % m);
+        } else {
+            code = unaryEncode(x / m) + binaryEncode(x % m);
+        }
+
+        for(char c: code) {
+            unsigned int value = (unsigned int) (c - '0');
+
+            this->bitStream.pushBit(value);                        
+        }
+
+        return code.data();
+    }
+
+    /* Decoding function */
+    int decode(const std::string& encodedBits) const {
+        int pos = 0;
+
+        if (useSignMagnitude) pos++;
+        int quotient = unaryDecode(encodedBits, pos);
+        int remainder = binaryDecode(encodedBits, pos);
+
+        // cout << "Q: " << quotient << endl;
+        // cout << "R: " << remainder << endl;
+
+        // Handle negative numbers based on user's choice
+        if (useSignMagnitude && encodedBits[0] == '1') {
+            return -((quotient * m) + remainder);
+        } else {
+            return (quotient * m) + remainder;
+        }
+    }
+
+    void setM(int newM) {
+        m = newM;
+    }
+
+    void setNegativeRepresentation(bool signMag) {
+        useSignMagnitude = signMag;
+    }
+
+    BitStream getBitStream() {
+        return this->bitStream;
     }
 };

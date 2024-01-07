@@ -1,0 +1,166 @@
+Golomb code test
+
+Original Value: -20
+Encoded Bits: 1110111
+Decoded Value: -20
+
+Original Value: -19
+Encoded Bits: 1110110
+Decoded Value: -19
+
+Original Value: -18
+Encoded Bits: 1110101
+Decoded Value: -18
+
+Original Value: -17
+Encoded Bits: 1110100
+Decoded Value: -17
+
+Original Value: -16
+Encoded Bits: 1110011
+Decoded Value: -16
+
+Original Value: -15
+Encoded Bits: 1110010
+Decoded Value: -15
+
+Original Value: -14
+Encoded Bits: 111000
+Decoded Value: -14
+
+Original Value: -13
+Encoded Bits: 110111
+Decoded Value: -13
+
+Original Value: -12
+Encoded Bits: 110110
+Decoded Value: -12
+
+Original Value: -11
+Encoded Bits: 110101
+Decoded Value: -11
+
+Original Value: -10
+Encoded Bits: 110100
+Decoded Value: -10
+
+Original Value: -9
+Encoded Bits: 110011
+Decoded Value: -9
+
+Original Value: -8
+Encoded Bits: 110010
+Decoded Value: -8
+
+Original Value: -7
+Encoded Bits: 11000
+Decoded Value: -7
+
+Original Value: -6
+Encoded Bits: 10111
+Decoded Value: -6
+
+Original Value: -5
+Encoded Bits: 10110
+Decoded Value: -5
+
+Original Value: -4
+Encoded Bits: 10101
+Decoded Value: -4
+
+Original Value: -3
+Encoded Bits: 10100
+Decoded Value: -3
+
+Original Value: -2
+Encoded Bits: 10011
+Decoded Value: -2
+
+Original Value: -1
+Encoded Bits: 10010
+Decoded Value: -1
+
+Original Value: 0
+Encoded Bits: 0000
+Decoded Value: 0
+
+Original Value: 1
+Encoded Bits: 00010
+Decoded Value: 1
+
+Original Value: 2
+Encoded Bits: 00011
+Decoded Value: 2
+
+Original Value: 3
+Encoded Bits: 00100
+Decoded Value: 3
+
+Original Value: 4
+Encoded Bits: 00101
+Decoded Value: 4
+
+Original Value: 5
+Encoded Bits: 00110
+Decoded Value: 5
+
+Original Value: 6
+Encoded Bits: 00111
+Decoded Value: 6
+
+Original Value: 7
+Encoded Bits: 01000
+Decoded Value: 7
+
+Original Value: 8
+Encoded Bits: 010010
+Decoded Value: 8
+
+Original Value: 9
+Encoded Bits: 010011
+Decoded Value: 9
+
+Original Value: 10
+Encoded Bits: 010100
+Decoded Value: 10
+
+Original Value: 11
+Encoded Bits: 010101
+Decoded Value: 11
+
+Original Value: 12
+Encoded Bits: 010110
+Decoded Value: 12
+
+Original Value: 13
+Encoded Bits: 010111
+Decoded Value: 13
+
+Original Value: 14
+Encoded Bits: 011000
+Decoded Value: 14
+
+Original Value: 15
+Encoded Bits: 0110010
+Decoded Value: 15
+
+Original Value: 16
+Encoded Bits: 0110011
+Decoded Value: 16
+
+Original Value: 17
+Encoded Bits: 0110100
+Decoded Value: 17
+
+Original Value: 18
+Encoded Bits: 0110101
+Decoded Value: 18
+
+Original Value: 19
+Encoded Bits: 0110110
+Decoded Value: 19
+
+Original Value: 20
+Encoded Bits: 0110111
+Decoded Value: 20
+
