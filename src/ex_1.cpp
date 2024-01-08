@@ -5,7 +5,7 @@
 #include <string>
 #include <assert.h>
 #include <filesystem>
-#include "compressor.h"
+#include "compressor1frame.h"
 
 using std::cout;
 using std::cerr;

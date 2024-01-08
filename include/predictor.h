@@ -56,7 +56,7 @@ class Predictor {
                 }
             }
 
-            // cout << actualMatrix << endl;
+            // cout << residualMatrix << endl;
 
             return actualMatrix;
         }
@@ -89,7 +89,7 @@ class Predictor {
                 }
             }
 
-            // cout << inputMatrix << endl;
+            // cout << residualMatrix << endl;
 
             return residualMatrix;
         }
